@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Redirect;
-use Auth;
 
 
-class addproductController extends Controller
+class showprojectsController extends Controller
 {
     public function add(Request $request)
     {
@@ -20,37 +17,30 @@ class addproductController extends Controller
     }
     public function show(Request $request)
     {
+       $products = Project::paginate(15);
+     
         //die("iohdfuhseduih");
-       return view('projects.showprojects', [
+       return view('dashboard', [
             'request' => $request,
             'user' => $request->user(),
+            'data' => $products,
         ]);
+
+
+
+       
     }
-    public function added(Request $request)
+
+    public function singleproject($id)
     {
-       $validated = $request->validate([
-            'name' => 'required',
-            'file' => 'required',
-        ]);
-        $emps = new Project;
+        $products = Project::where('id', $id)->get()->toArray();
+     
+//print_r($products); die;
+       return view('projects.singleproject', ['data' => $products]);
 
-        if ($request->file->extension() != "xml") {
-            return Redirect::back()->withErrors(['file' => 'Please upload xml file']);
-        }
 
-        $imageName = time().'.'.$request->file->extension();
 
-        // $name = $request->file->getClientOriginalName();
-
-        $request->file->move(public_path('xmlfile'), $imageName);
-
-        $emps->name = $request->input('name');
-        $emps->user_id = Auth::user()->id;
-        $emps->file_name = $imageName;
-        $emps->status = 0;
-        
-        $emps->save();
-        return redirect()->back()->with('success', 'Prodject added successfully');   
+       
     }
     public function addproduct2(Request $request)
     {

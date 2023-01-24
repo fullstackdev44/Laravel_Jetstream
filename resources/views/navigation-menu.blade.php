@@ -53,11 +53,11 @@
                                         </x-jet-dropdown-link>
                                     @endcan
 
-                                    <!-- @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                        <x-jet-dropdown-link href="{{ route('teams.create') }}">
+                                   
+                                        <x-jet-dropdown-link href="addproduct">
                                             {{ __('Create project') }}
                                         </x-jet-dropdown-link>
-                                    @endcan -->
+                                   
 
                                     <div class="border-t border-gray-100"></div>
 

@@ -133,6 +133,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+    'openai_api_key' => env('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'),
 
     'providers' => [
 

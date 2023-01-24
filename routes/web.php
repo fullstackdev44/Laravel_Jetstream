@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\addproductController;
+use App\Http\Controllers\showprojectsController;
+use App\Http\Controllers\ArticleGeneratorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,13 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+     Route::get('/dashboard',[showprojectsController::class, 'show'])->name('dashboard');
 });
+Route::post('/write/generate', [ArticleGeneratorController::class, 'index'])->name('write.generate');
+Route::get('/write', function () {
+    $title = '';
+    $content = '';
+    return view('write', compact('title', 'content'));
+});
+
+require_once __DIR__ . '/jetstream.php';
